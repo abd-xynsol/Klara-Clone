@@ -7,6 +7,7 @@ import AdminDashboard from './pages/AdminDashboard'
 import StaffDashboard from './pages/StaffDashboard'
 import PatientDashboard from './pages/PatientDashboard'
 import DeveloperDashboard from './pages/DeveloperDashboard'
+import ResetPassword from './pages/ResetPassword'
 
 
 export default function Router() {
@@ -16,6 +17,7 @@ return (
 <Route path="/login/facility" element={<LoginFacility />} />
 <Route path="/login/developer" element={<LoginDeveloper />} />
 <Route path="/login/patient" element={<LoginPatient />} />
+<Route path="/reset-password" element={<ResetPassword />} />
 
 
 <Route path="/dashboard/admin" element={<AdminDashboard />} />
