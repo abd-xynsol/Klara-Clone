@@ -4,17 +4,30 @@ const API = import.meta.env.VITE_API_URL || 'http://localhost:8000/api';
 
 export const handlers = [
   // Staff / Facility Login
-  http.post(`${API}/auth/login/`, async ({ request }) => {
-    const body = await request.json() as { email: string; password: string };
+  // http.post(`${API}/auth/login/`, async ({ request }) => {
+  //   const body = await request.json() as { email: string; password: string };
 
-    if (body.email === 'staff@klara.test' && body.password === 'Password123!') {
-      return HttpResponse.json(
-        { token: 'mock-token-staff', user: { id: 2, email: 'staff@klara.test', role: 'staff' } },
-        { status: 200 }
-      );
-    }
-    return HttpResponse.json({ detail: 'Invalid credentials' }, { status: 401 });
-  }),
+  //   if (body.email === 'staff@klara.test' && body.password === 'Password123!') {
+  //     return HttpResponse.json(
+  //       { token: 'mock-token-staff', user: { id: 2, email: 'staff@klara.test', role: 'staff' } },
+  //       { status: 200 }
+  //     );
+  //   }
+  //   return HttpResponse.json({ detail: 'Invalid credentials' }, { status: 401 });
+  // }),
+
+http.post(`${API}/auth/login/`, async ({ request }) => {
+  const body = await request.json() as { email: string; password: string };
+
+  if (body.email === 'staff@klara.test' && body.password === 'Password123!') {
+    return HttpResponse.json(
+      { token: 'mock-token-staff', user: { id: 2, email: 'staff@klara.test', role: 'staff' } },
+      { status: 200 }
+    );
+  }
+  return HttpResponse.json({ detail: 'Invalid credentials' }, { status: 401 });
+}),
+
 
   // Developer Login (with MFA)
   http.post(`${API}/auth/developer-login/`, async ({ request }) => {
@@ -42,24 +55,7 @@ export const handlers = [
     return HttpResponse.json({ detail: 'Invalid admin credentials or MFA' }, { status: 401 });
   }),
 
-  // // Patient - Request OTP
-  // http.post(`${API}/auth/send-otp/`, async () => {
-  //   return HttpResponse.json({ user_id: 50, message: 'OTP sent' }, { status: 200 });
-  // }),
-
-  // // Patient - Verify OTP
-  // http.post(`${API}/auth/verify-otp/`, async ({ request }) => {
-  //   const body = await request.json() as { email: string; code: string };
-
-  //   if (body.code === '123456') {
-  //     return HttpResponse.json(
-  //       { token: 'mock-token-patient', user: { id: 50, email: 'patient@klara.test', role: 'patient' } },
-  //       { status: 200 }
-  //     );
-  //   }
-  //   return HttpResponse.json({ detail: 'Invalid OTP' }, { status: 401 });
-  // }),
-  // Patient - Send OTP
+  
   http.post(`${API}/auth/send-otp/`, async () => {
     return HttpResponse.json({ user_id: 50, message: 'OTP sent to phone' }, { status: 200 });
   }),

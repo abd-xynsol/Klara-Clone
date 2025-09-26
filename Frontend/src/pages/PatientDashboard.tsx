@@ -1,12 +1,12 @@
 import React from "react"
 import AuthGuard from "../components/AuthGuard"
-import Navbar from "../components/Navbar"
+import NavbarPatient from "../components/NavbarPatient"
 
 export default function PatientDashboard() {
   return (
     <AuthGuard allowed={["patient"]}>
       <div className="min-h-screen bg-primary-light">
-        <Navbar />
+        <NavbarPatient />
 
         <div className="p-6 grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           <div className="bg-white rounded-2xl shadow-card p-6">
