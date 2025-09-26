@@ -1,78 +1,15 @@
-// import React, { useState } from 'react'
-// import { useForm } from 'react-hook-form'
-// import api from '../api/axios'
-// import useAuth from '../stores/authStore'
-// import toast from 'react-hot-toast'
-
-
-// type Form = { phone?: string; otp?: string; linkToken?: string }
-
-
-// export default function LoginPatient() {
-// const { register, handleSubmit } = useForm<Form>()
-// const [step, setStep] = useState<'phone' | 'verify' | 'onboarding'>('phone')
-// const [userId, setUserId] = useState<number | null>(null)
-// const setAuth = useAuth((s: { setAuth: any }) => s.setAuth)
-
-
-// const sendOtp = async (data: Form) => {
-// try {
-// const res = await api.post('/auth/send-otp/', { phone: data.phone })
-// setUserId(res.data.user_id)
-// toast.success('OTP sent')
-// setStep('verify')
-// } catch (e: any) {
-// toast.error('Could not send OTP')
-// }
-// }
-
-
-// const verifyOtp = async (data: Form) => {
-// try {
-// const res = await api.post('/auth/verify-otp/', { user_id: userId, code: data.otp })
-// // on success, backend returns token and user
-// setAuth(res.data.token, res.data.user)
-// toast.success('Logged in')
-// window.location.href = '/dashboard/patient'
-// } catch (e: any) {
-// toast.error('Invalid OTP')
-// }
-// }
-
-
-// return (
-// <div className="min-h-screen flex items-center justify-center">
-// <div className="w-full max-w-md bg-white p-6 rounded shadow">
-// <h2 className="text-2xl mb-4">Patient Login / Onboarding</h2>
-// {step === 'phone' && (
-// <form onSubmit={handleSubmit(sendOtp)} className="flex flex-col gap-3">
-// <input {...register('phone', { required: true })} placeholder="Phone/Email" className="input" />
-// <button type="submit" className="px-4 py-2 bg-primary text-white rounded">Send OTP</button>
-// </form>
-// )}
-// {step === 'verify' && (
-// <form onSubmit={handleSubmit(verifyOtp)} className="flex flex-col gap-3">
-// <input {...register('otp', { required: true })} placeholder="Enter OTP" className="input" />
-// <button type="submit" className="px-4 py-2 bg-primary text-white rounded">Verify OTP</button>
-// </form>
-// )}
-// </div>
-// </div>
-// )
-// }
-
 import React, { useState } from "react"
 import { useForm } from "react-hook-form"
 import api from "../api/axios"
 import useAuth from "../stores/authStore"
 import toast from "react-hot-toast"
-import pic1 from "../assets/pic1.jpg" // your illustration
+import { Link } from "react-router-dom"
 
 type Form = { phone?: string; otp?: string; linkToken?: string }
 
 export default function LoginPatient() {
   const { register, handleSubmit } = useForm<Form>()
-  const [step, setStep] = useState<"phone" | "verify" | "onboarding">("phone")
+  const [step, setStep] = useState<"phone" | "verify">("phone")
   const [userId, setUserId] = useState<number | null>(null)
   const setAuth = useAuth((s: { setAuth: any }) => s.setAuth)
 
@@ -102,72 +39,64 @@ export default function LoginPatient() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col md:flex-row bg-white">
-      {/* Left: Form */}
-      <div className="flex w-full md:w-1/2 flex-col justify-center px-8 md:px-16 lg:px-24">
-        <div className="max-w-md w-full">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">
-            Sign in to Patient Portal
-          </h2>
+    <div className="min-h-screen flex items-center justify-center bg-white">
+      <div className="w-full max-w-3xl flex bg-white">
+        {/* Left Side - Form */}
+        <div className="flex flex-col justify-center w-full max-w-md px-10 py-8 mx-auto">
+          <h1 className="text-3xl font-extrabold text-black mb-2">Klara</h1>
+          <p className="text-gray-600 mb-6">Sign in to Patient Portal</p>
 
           {step === "phone" && (
-            <form
-              onSubmit={handleSubmit(sendOtp)}
-              className="flex flex-col gap-4"
-            >
-              <label className="text-sm font-medium text-gray-700">
-                Cell phone number
-              </label>
+            <form onSubmit={handleSubmit(sendOtp)} className="flex flex-col gap-4">
               <input
                 {...register("phone", { required: true })}
                 placeholder="Your cell phone number"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+                className="border rounded-md px-4 py-2 focus:outline-none"
               />
               <button
                 type="submit"
-                className="mt-2 w-full py-2 bg-primary text-white rounded-md hover:bg-primary-dark transition"
+                className="mt-2 px-4 py-2 bg-black text-white font-semibold rounded-md hover:bg-gray-800 transition"
               >
                 Submit
               </button>
-              <a
-                href="#"
-                className="text-sm text-primary mt-2 hover:underline"
-              >
+               <a href="#" className="text-sm text-black mt-2 hover:underline">
                 I can’t log in
               </a>
             </form>
           )}
 
           {step === "verify" && (
-            <form
-              onSubmit={handleSubmit(verifyOtp)}
-              className="flex flex-col gap-4"
-            >
-              <label className="text-sm font-medium text-gray-700">
-                Enter OTP
-              </label>
+            <form onSubmit={handleSubmit(verifyOtp)} className="flex flex-col gap-4">
               <input
                 {...register("otp", { required: true })}
                 placeholder="Enter OTP"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
+                className="border rounded-md px-4 py-2 focus:outline-none"
               />
               <button
                 type="submit"
-                className="mt-2 w-full py-2 bg-primary text-white rounded-md hover:bg-primary-dark transition"
+                className="mt-2 px-4 py-2 bg-black text-white font-semibold rounded-md hover:bg-gray-800 transition"
               >
                 Verify OTP
               </button>
             </form>
           )}
         </div>
-      </div>
 
-      <div className="hidden md:flex w-1/2 items-center justify-center bg-whie">
-        <img
-          src={pic1}
-          alt="Patient Illustration"
-          className="center"
-        />
+        {/* Right Side - Social login placeholders */}
+        <div className="hidden md:flex flex-col justify-center items-center w-1/2 border-l bg-white px-8">
+          <p className="text-gray-600 mb-4">Or continue with</p>
+          <div className="flex flex-col gap-3 w-full">
+            <button className="flex items-center justify-center gap-2 border rounded-md px-4 py-2 bg-white hover:bg-gray-50 transition">
+              Continue with Google
+            </button>
+            <button className="flex items-center justify-center gap-2 border rounded-md px-4 py-2 bg-white hover:bg-gray-50 transition">
+              Continue with Facebook
+            </button>
+            <button className="flex items-center justify-center gap-2 border rounded-md px-4 py-2 bg-white hover:bg-gray-50 transition">
+              Sign up with Email
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   )
